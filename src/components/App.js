@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import '../styles/App.css';
 
-const data = {
+const list = {
   '2018': [
     'Avengers 1',
     'Now you see me',
@@ -27,10 +27,22 @@ const data = {
   ]
 }
 const App = () => {
-
+   const [data,setData] = useState()
+  // console.log(list[data]);
   return (
     <div id="main">
-      
+      <select onChange={(e)=>{setData(e.target.value)}}>
+      <option value={null}></option>
+     {Object.keys(list).map((yr,i)=>{
+      return <option value={yr} key={i}>{yr}</option>
+     })}
+      </select>
+      <div id="selected-year">{data? `Selected year-${data}` :'No year selected'}</div>
+      <ul>
+        {data && list[data].map((mov,index)=>
+          (<li key={index}>{mov}</li>)
+        )}
+      </ul>
     </div>
   )
 }
